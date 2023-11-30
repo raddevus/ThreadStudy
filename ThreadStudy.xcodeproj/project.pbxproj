@@ -14,6 +14,7 @@
 		A6C6330D2B19183100D1B516 /* ThreadStudyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C6330C2B19183100D1B516 /* ThreadStudyTests.swift */; };
 		A6C633172B19183100D1B516 /* ThreadStudyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C633162B19183100D1B516 /* ThreadStudyUITests.swift */; };
 		A6C633192B19183100D1B516 /* ThreadStudyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C633182B19183100D1B516 /* ThreadStudyUITestsLaunchTests.swift */; };
+		A6C633262B19188D00D1B516 /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C633252B19188D00D1B516 /* Worker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		A6C633122B19183100D1B516 /* ThreadStudyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThreadStudyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C633162B19183100D1B516 /* ThreadStudyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadStudyUITests.swift; sourceTree = "<group>"; };
 		A6C633182B19183100D1B516 /* ThreadStudyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadStudyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A6C633252B19188D00D1B516 /* Worker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				A6C632FD2B19182F00D1B516 /* ContentView.swift */,
 				A6C632FF2B19183000D1B516 /* Assets.xcassets */,
 				A6C633012B19183000D1B516 /* Preview Content */,
+				A6C633252B19188D00D1B516 /* Worker.swift */,
 			);
 			path = ThreadStudy;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6C632FE2B19182F00D1B516 /* ContentView.swift in Sources */,
+				A6C633262B19188D00D1B516 /* Worker.swift in Sources */,
 				A6C632FC2B19182F00D1B516 /* ThreadStudyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

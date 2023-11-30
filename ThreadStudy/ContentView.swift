@@ -25,7 +25,8 @@ struct ContentView: View {
                     Task{
                         await worker.fasterTask()
                         print ("##### START #####")
-                        await worker.fetchWeatherHistory()
+                        let output = await worker.fetchWeatherHistory()
+                        print("output.count : \(output.count)  & \(output[38343])")
                         print ("##### END #####")
                     }
                     print("**** AFTER TASK ***** ")

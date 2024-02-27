@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var jokeText = ""
+    @State private var joke2 = ""
     let worker = Worker()
     func generateRows(){
         print("I am here!  Hear me roar!!")
@@ -16,18 +18,28 @@ struct ContentView: View {
     var body: some View {
         TabView{
             VStack {
+                Text(jokeText)
                 Image(systemName: "globe")
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 Text("Hello, world!")
+                Text(joke2)
                 Button("Get Weather"){
+                    // NOTE:  1) Each Task runs concurrently with each other.
+                    // 2) Statements within each Task run synchronously (previous one has to complete before next one runs) -- blocking type of calls
                     
+                    Task{
+                        jokeText = try! await worker.getChuckNorrisData().result.get()
+                    }
                     Task{
                         await worker.fasterTask()
                         print ("##### START #####")
                         let output = await worker.fetchWeatherHistory()
                         print("output.count : \(output.count)  & \(output[38343])")
                         print ("##### END #####")
+                    }
+                   Task{
+                        joke2 = await worker.getChuckNorrisData2()
                     }
                     print("**** AFTER TASK ***** ")
                 }.buttonStyle(.bordered)

@@ -39,18 +39,20 @@ struct Worker{
     
     func getChuckNorrisData2() async -> String{
         var data: Data? = nil
+        var retError: HTTPURLResponse? = nil
+        
         do {
-            let (data, retError) = try await (URLSession.shared.data(from: URL(string:"https://api.chucknorris.io/jokes/random-")!) as? (Data, HTTPURLResponse))!
+            (data, retError) = try await (URLSession.shared.data(from: URL(string:"https://api.chucknorris.io/jokes/random-")!) as? (Data, HTTPURLResponse))!
             print("printing data : \(data)")
-            print ("response error --->  \(retError.statusCode)")
+            print ("response error --->  \(retError?.statusCode)")
             // catches errors in response from web api -- so web api has been
             // successfully contacted but a "normal" status error occurs
             // Other bad errors throw exceptions which is caught below
             // bad URL like string:"https://api.chucknorris.io/jokes/random-"
             // will cause this error (404)
-            switch retError.statusCode{
-                case _ where retError.statusCode < 200 || retError.statusCode >= 300:
-                    return "Couldn't carry on.  Bad status code from API \(retError.statusCode)"
+            switch retError?.statusCode{
+            case _ where retError!.statusCode < 200 || retError!.statusCode >= 300:
+                return "Couldn't carry on.  Bad status code from API \(retError?.statusCode)"
                 default:
                     print("Success!")
             }

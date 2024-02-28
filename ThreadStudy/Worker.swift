@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Worker{
     
@@ -76,13 +77,15 @@ struct Worker{
     
     func getInitialPokemonList() async -> String{
         var data: Data? = nil
+        var response: HTTPURLResponse? = nil
         do{
-            let (data, response) = try await ((URLSession.shared.data(from: URL(string:"")!) as? (Data, HTTPURLResponse))!)
-            switch response.statusCode{
-                case _ where response.statusCode < 200 || response.statusCode >= 300:
-                    return "Couldn't carry on.  Bad status code from API \(response.statusCode)"
+            (data, response) = try await ((URLSession.shared.data(from: URL(string:"https://pokeapi.co/api/v2/pokemon")!) as? (Data, HTTPURLResponse))!)
+            switch response?.statusCode{
+            case _ where response!.statusCode < 200 || response!.statusCode >= 300:
+                return "Couldn't carry on.  Bad status code from API \(response!.statusCode)"
                 default:
-                    print("Success!")
+                    print("Pokemon Success!")
+                print("DATA: \(String(decoding: data!, as: UTF8.self))")
             }
         }
         catch{
@@ -95,7 +98,12 @@ struct Worker{
         }
         
         do{
-            let response = try JSONDecoder().decode(PokemonChar.self, from: data!)
+        
+            let decodedJson = try JSONDecoder().decode(PokemonBase.self, from: data!)
+            let randomChoice = Int.random(in:0...19)
+            return "\(decodedJson.results[randomChoice].name) : \(randomChoice)"
+                //print("respone: \(String(decoding: data, as: UTF8.self))")
+            
         }
         catch {
             print("*** error: Couldn't DECODE JSON \(error) ***")
@@ -113,14 +121,14 @@ struct Worker{
         let value: String
     }
     
-    struct PokemonBase{
+    struct PokemonBase : Codable{
         let count: Int
-        let next: String
-        let previous: String
+        let next: String?
+        let previous: String?
         let results: [PokemonChar]
     }
     
-    struct PokemonChar : Decodable{
+    struct PokemonChar : Codable{
         let name: String
         let url: String
     }

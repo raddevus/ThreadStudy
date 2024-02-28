@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var jokeText = ""
     @State private var joke2 = ""
+    @State private var pokemonMsg = ""
+    
     let worker = Worker()
     func generateRows(){
         print("I am here!  Hear me roar!!")
@@ -24,6 +26,7 @@ struct ContentView: View {
                     .foregroundStyle(.tint)
                 Text("Hello, world!")
                 Text(joke2)
+                Text(pokemonMsg)
                 Button("Get Weather"){
                     // NOTE:  1) Each Task runs concurrently with each other.
                     // 2) Statements within each Task run synchronously (previous one has to complete before next one runs) -- blocking type of calls
@@ -40,6 +43,10 @@ struct ContentView: View {
                     }
                    Task{
                         joke2 = await worker.getChuckNorrisData2()
+                    }
+                    Task{
+                        pokemonMsg = await worker.getInitialPokemonList()
+                        
                     }
                     print("**** AFTER TASK ***** ")
                 }.buttonStyle(.bordered)

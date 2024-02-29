@@ -43,8 +43,6 @@ struct Worker{
         
         do {
             (data, retError) = try await (URLSession.shared.data(from: URL(string:"https://api.chucknorris.io/jokes/random-")!) as? (Data, HTTPURLResponse))!
-            print("printing data : \(data)")
-            print ("response error --->  \(retError?.statusCode)")
             // catches errors in response from web api -- so web api has been
             // successfully contacted but a "normal" status error occurs
             // Other bad errors throw exceptions which is caught below
@@ -62,8 +60,8 @@ struct Worker{
             // bad URL like the following causes this exception:
             // (notice the x in the protocol portion of URL
             // string:"httpxs://api.chucknorris.io/jokes/random"
-            print("!! What ERROR? \(error)")
-            return "failed to retrieve data"
+            print("!! What ERROR? \(error.localizedDescription)")
+            return "\(error.localizedDescription)"
         }
         do {
             let decodedResponse = try JSONDecoder().decode(Fake.self, from: data!)
@@ -109,7 +107,8 @@ struct Worker{
             
         }
         catch {
-            print("*** error: Couldn't DECODE JSON \(error) ***")
+            print("*** error: Couldn't DECODE JSON \(error.localizedDescription) ***")
+            print("*** \(error) ***")
         }
         return "completed method"
     }

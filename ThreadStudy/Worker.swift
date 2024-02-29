@@ -103,6 +103,7 @@ struct Worker{
         
             let decodedJson = try JSONDecoder().decode(PokemonBase.self, from: data!)
             let randomChoice = Int.random(in:0...19)
+            // getting name and item number in list
             return "\(decodedJson.results[randomChoice].name) : \(randomChoice)"
                 //print("respone: \(String(decoding: data, as: UTF8.self))")
             
